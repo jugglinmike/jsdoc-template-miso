@@ -14,6 +14,20 @@ var template = require('jsdoc/template'),
     view,
     outdir = env.opts.destination;
 
+var linkToSource = function(fileName, lineNumber) {
+    var linkText = fileName;
+    var url = env.conf.templates.sourceFileUrl;
+
+    if (typeof lineNumber === 'number') {
+       linkText = 'line ' + lineNumber;
+       url = env.conf.templates.sourceLineUrl
+         .replace(/\{\{\s*lineNumber\s*\}\}/, lineNumber);
+    }
+
+    url = url.replace(/\{\{\s*fileName\s*\}\}/, fileName)
+
+    return '<a href="' + url + '">' + linkText + '</a>';
+};
 
 function find(spec) {
     return helper.find(data, spec);
@@ -478,6 +492,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     view.resolveAuthorLinks = resolveAuthorLinks;
     view.tutoriallink = tutoriallink;
     view.htmlsafe = htmlsafe;
+    view.linkToSource = linkToSource;
 
     // once for all
     view.nav = buildNav(members);

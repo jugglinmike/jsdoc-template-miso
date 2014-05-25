@@ -71,21 +71,6 @@ function needsSignature(doclet) {
     return needsSig;
 }
 
-function addSignatureParams(f) {
-    var params = helper.getSignatureParams(f, 'optional');
-
-    f.signature = (f.signature || '') + '('+params.join(', ')+')';
-}
-
-function addSignatureReturns(f) {
-    var returnTypes = helper.getSignatureReturns(f);
-
-    f.signature = '<span class="signature">' + (f.signature || '') + '</span>' +
-        '<span class="type-signature">' +
-        (returnTypes && returnTypes.length ? ' &rarr; {' + returnTypes.join('|') + '}' : '') +
-        '</span>';
-}
-
 function addSignatureTypes(f) {
     var types = helper.getSignatureTypes(f);
 
@@ -452,6 +437,7 @@ exports.publish = function(taffyData, opts, tutorials) {
 
     data().each(function(doclet) {
         var url = helper.longnameToUrl[doclet.longname];
+        var miso;
 
         if (url.indexOf('#') > -1) {
             doclet.id = helper.longnameToUrl[doclet.longname].split(/#/).pop();
@@ -461,8 +447,9 @@ exports.publish = function(taffyData, opts, tutorials) {
         }
 
         if ( needsSignature(doclet) ) {
-            addSignatureParams(doclet);
-            addSignatureReturns(doclet);
+            miso = doclet.miso = {};
+            miso.params = helper.getSignatureParams(doclet, 'optional');
+            miso.returnTypes = helper.getSignatureReturns(doclet);
             addAttribs(doclet);
         }
     });

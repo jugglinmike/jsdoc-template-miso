@@ -2,14 +2,24 @@
 var data = obj;
 var self = this;
 ?>
-<dt>
-    <h4 class="name" id="<?js= id ?>"><?js= data.attribs + (kind === 'class' ? 'new ' : '') + name + (kind !== 'event' ? data.signature : '') ?></h4>
+
+<div class="bar">
+    <h3 id="<?js= id ?>">
+      <?js= data.attribs + (kind === 'class' ? 'new ' : '') + name ?>
+      <?js= '( ' + data.miso.params.join(', ') + ' )' ?>
+    </h3>
+    <span class="returns">
+      <?js if (kind !== 'event' && data.miso.returnTypes.length) { ?>
+        Returns: <span class="object"><?js= data.miso.returnTypes.join('|') ?>
+      <?js } ?>
+    </span>
+</div>
 
     <?js if (data.summary) { ?>
     <p class="summary"><?js= summary ?></p>
     <?js } ?>
-</dt>
-<dd>
+
+
 
     <?js if (data.description) { ?>
     <div class="description">
@@ -100,4 +110,3 @@ var self = this;
             ?></textarea></div>
         <?js }) ?>
     <?js } ?>
-</dd>

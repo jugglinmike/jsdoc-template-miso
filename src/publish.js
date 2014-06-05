@@ -10,17 +10,24 @@ var template = require('jsdoc/template'),
     resolveAuthorLinks = helper.resolveAuthorLinks,
     scopeToPunc = helper.scopeToPunc,
     hasOwnProp = Object.prototype.hasOwnProperty,
+    query = env.opts.query,
     data,
     view,
     outdir = env.opts.destination;
 
+if (!('sourceFileUrl' in query)) {
+	throw new Error('`srcFileUrl` must be specified via the JSDoc query');
+} else if (!('sourceLineUrl' in query)) {
+	throw new Error('`srcLineUrl` must be specified via the JSDoc query');
+}
+
 var linkToSource = function(fileName, lineNumber) {
     var linkText = fileName;
-    var url = env.conf.templates.sourceFileUrl;
+    var url = env.opts.query.sourceFileUrl;
 
     if (typeof lineNumber === 'number') {
        linkText = 'line ' + lineNumber;
-       url = env.conf.templates.sourceLineUrl
+       url = env.opts.query.sourceLineUrl
          .replace(/\{\{\s*lineNumber\s*\}\}/, lineNumber);
     }
 

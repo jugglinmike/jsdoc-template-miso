@@ -238,7 +238,7 @@ function buildNav(members) {
 
             if ( !hasOwnProp.call(seen, c.longname) ) {
                 classNav += '<li>';
-                classNav += linkto(c.longname, c.name);
+                classNav += linkto(c.longname, c.longname);
 
                 methods = find({ kind: 'function', memberof: c.longname });
                 if (methods.length) {

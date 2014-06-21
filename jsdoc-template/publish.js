@@ -234,8 +234,22 @@ function buildNav(members) {
 
     if (members.classes.length) {
         members.classes.forEach(function(c) {
+            var methods;
+
             if ( !hasOwnProp.call(seen, c.longname) ) {
-                classNav += '<li>'+linkto(c.longname, c.name)+'</li>';
+                classNav += '<li>';
+                classNav += linkto(c.longname, c.name);
+
+                methods = find({ kind: 'function', memberof: c.longname });
+                if (methods.length) {
+                    classNav += '<ul><li>';
+                    classNav += methods.map(function(method) {
+                        return linkto(method.longname, method.name);
+                    }).join('</li><li>');
+                    classNav += '</li></ul>';
+                }
+
+                classNav += '</li>';
             }
             seen[c.longname] = true;
         });

@@ -1,0 +1,19 @@
+{
+  "name": "miso-jsdoc-template",
+  "version": "0.0.1",
+  "description": "JSDoc template for the Miso project's API documentation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/misoproject/miso-jsdoc-template.git"
+  },
+  "author": "Mike Pennisi",
+  "license": "MIT-Expat",
+  "bugs": {
+    "url": "https://github.com/misoproject/miso-jsdoc-template/issues"
+  },
+  "homepage": "https://github.com/misoproject/miso-jsdoc-template"
+}
